@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getAllProducts } from './helper';
 import { useHistory } from 'react-router-dom'
 import ItemCard from '../../_helper/ItemCard';
-
+import Loading from '../../_helper/Loading';
 import './product.css';
 
 const Products = () => {
@@ -16,18 +16,21 @@ const Products = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [getAllProducts])
 
-    console.log('products', products)
+
 
     return (
         <>
-            <h1> Lastest Products</h1>
-            {loading && <h2>Loading....</h2>}
+            <div className="my-3">
+                <h1> Latest Products</h1>
+            </div>
+
+            {loading && <Loading />}
             <div className="row">
 
                 {
                     products?.map((itm, index) => (
 
-                        <div className="col-md-4">
+                        <div className="product-item col-md-4">
                             <ItemCard key={itm?.index}
                                 link={`/products/${itm?._id}`}
                                 name={itm?.name}

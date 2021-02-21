@@ -4,6 +4,7 @@ import ItemCard from '../../_helper/ItemCard';
 import { getSingleProduct } from './helper';
 import { Image, ListGroup, Button } from 'react-bootstrap';
 import Rating from '../../_helper/Rating';
+import Loading from '../../_helper/Loading';
 
 
 
@@ -27,7 +28,7 @@ export default function ProductItem() {
 
     return (
         <>
-            {loading && <h1>Loading...</h1>}
+            {loading && <Loading />}
             <Button className="btn btn-light my-3" onClick={() => history.push('/')}>Go Back</Button>
             {product?.image &&
                 <div className="row mt-4">
@@ -75,7 +76,8 @@ export default function ProductItem() {
 
                             </ListGroup.Item>
                             <ListGroup.Item>
-                                <Button className="btn btn-block"
+                                <Button className="btn btn-primary btn-block"
+
                                     type="button"
                                     disabled={product?.countInStock === 0}>
                                     Add To Cart

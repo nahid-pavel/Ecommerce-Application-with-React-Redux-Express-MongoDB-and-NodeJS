@@ -18,7 +18,7 @@ export const getAllProducts = async (setter, setLoading) => {
 
     } catch (error) {
         console.log(error.message);
-        setLoading(false)
+        setLoading(true)
 
 
     }
@@ -46,7 +46,7 @@ export const getSingleProduct = async (id, setter, setLoading) => {
 
     } catch (error) {
         console.log(error.message);
-        setLoading(false)
+        setLoading(true)
 
 
     }
