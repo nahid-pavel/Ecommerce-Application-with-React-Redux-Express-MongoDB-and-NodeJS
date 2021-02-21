@@ -27,8 +27,22 @@ const Products = () => {
                 {
                     products?.map((itm, index) => (
 
-                        <div className="col-md-3 p-4">
-                            <ItemCard key={itm?.index} link={`/products/${itm?._id}`} name={itm?.name} description={itm?.description} imgSrc={itm?.image} price={itm?.price} />
+                        <div className="col-md-4">
+                            <ItemCard key={itm?.index}
+                                link={`/products/${itm?._id}`}
+                                name={itm?.name}
+                                description={itm?.description}
+                                imgSrc={itm?.image}
+                                price={itm?.price}
+                                rating={{
+                                    value: itm?.rating,
+                                    text: itm?.numReviews,
+                                    color: 'red'
+
+
+
+                                }}
+                            />
                         </div>
 
 
