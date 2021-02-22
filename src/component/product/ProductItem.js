@@ -1,20 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import ItemCard from '../../_helper/ItemCard';
+
 import { getSingleProduct } from './helper';
 import { Image, ListGroup, Button } from 'react-bootstrap';
 import Rating from '../../_helper/Rating';
 import Loading from '../../_helper/Loading';
+import FormikInput from '../../_helper/FormikInput';
+import Select from 'react-select';
+import { useDispatch } from 'react-redux';
+import { setAddToCartActions } from '../../localStorageRedux/Actions';
+
+
+
 
 
 
 export default function ProductItem() {
     const { id } = useParams();
     const history = useHistory();
+    const dispatch = useDispatch()
 
 
     const [product, setProduct] = useState({});
     const [loading, setLoading] = useState(false);
+    const [qty, setQty] = useState({ value: '1', label: '1' });
+    const [qtyDDL, setQtyDDL] = useState([])
+
+
+
+
 
 
     useEffect(() => {
@@ -24,6 +38,29 @@ export default function ProductItem() {
         }
 
     }, [id])
+    useEffect(() => {
+
+        if (product?.countInStock) {
+            setQtyDDL([
+                ...Array(
+
+                    product?.countInStock
+
+                )
+            ].map((v, i) => {
+
+                return {
+                    value: i + 1,
+                    label: i + 1
+                }
+            })
+            )
+        }
+
+
+    }, [product])
+
+
 
 
     return (
@@ -76,10 +113,37 @@ export default function ProductItem() {
 
                             </ListGroup.Item>
                             <ListGroup.Item>
+                                <div className="row">
+                                    <div className="col">
+                                        Quantity:
+                                        </div>
+                                    <div className="col">
+                                        <Select
+                                            name="qty"
+                                            value={qty}
+                                            options={qtyDDL}
+                                            onChange={(v) => setQty(v)}
+                                            isDisabled={product?.countInStock === 0}
+
+
+
+                                        />
+                                    </div>
+
+                                </div>
+
+                            </ListGroup.Item>
+                            <ListGroup.Item>
                                 <Button className="btn btn-primary btn-block"
 
                                     type="button"
-                                    disabled={product?.countInStock === 0}>
+                                    disabled={product?.countInStock === 0}
+                                    onClick={() => dispatch(setAddToCartActions({
+                                        ...product,
+                                        totalQty: +qty?.value
+                                    }))}
+
+                                >
                                     Add To Cart
                                 </Button>
 

@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import { Container } from 'react-bootstrap';
 
 import ProductPages from './component/product/ProductPages';
+import CartItems from './component/cart/CartItems';
 
 
 
@@ -19,6 +20,7 @@ const BasePage = () => {
                     <Switch>
                         <Route exact path="/" component={ProductPages} />
                         <Route path="/products" component={ProductPages} />
+                        <Route path="/cartItems" component={CartItems} />
                         <Route path="/error" component={() => <h1>Error 404!</h1>} />
                         {/* <Redirect to="/error" /> */}
                     </Switch>

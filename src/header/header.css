@@ -12,3 +12,23 @@
     display:flex;
     align-items: center;
 }
+
+.totalItems{
+    position:absolute;
+    width: 20px;
+    height:20px;
+    background-color: #fff;
+    border-radius: 50%;
+    top:-15px;
+    left:8px;
+
+
+}
+.totalItems > span{
+    color:black;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    font-size:15px;
+
+}
