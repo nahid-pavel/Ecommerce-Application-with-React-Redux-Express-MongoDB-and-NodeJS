@@ -24,12 +24,15 @@ export const localStorageSlice = createSlice({
 
 
 
+        },
+
+        removeCartItems: (state, action) => {
+            const { payload } = action;
+            const filteredItems = state.cartItems.filter(itm => itm?._id !== payload._id);
+            state.cartItems = filteredItems;
+
+
         }
-
-
-    },
-    removeCartItems: (state, action) => {
-
     }
 
 
