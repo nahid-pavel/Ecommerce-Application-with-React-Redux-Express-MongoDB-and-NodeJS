@@ -5,9 +5,11 @@ import { setAddToCartActions, removeAddToCartActions } from '../../localStorageR
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
+
 import Select from 'react-select';
 import Delete from '../../_helper/Delete';
 import IConfirmModal from '../../_helper/ConfirmModal';
+
 
 
 
@@ -20,6 +22,8 @@ export default function CartItems() {
     const history = useHistory();
 
     const items = useSelector(state => state?.localStorage?.cartItems, shallowEqual);
+    const isAuth = useSelector(state => state?.auth?.profileData?.isAuth, shallowEqual);
+    console.log(isAuth, 'isAuth')
     const totalItems = items?.reduce((a, b) => a + b?.totalQty, 0)
     const totalPrice = items?.reduce((a, b) => a + b?.totalQty * b?.price, 0)
 
@@ -130,7 +134,12 @@ export default function CartItems() {
                         </Row>
                         <Row>
                             <Col md={12} className="text-right mr-3">
-                                <Button className="bg bg-dark py-3 my-4">
+                                <Button className="bg bg-dark py-3 my-4" onClick={() => isAuth ? history.push('/checkout') : history.push({
+                                    pathname: '/login',
+                                    state: {
+                                        link: '/checkout'
+                                    }
+                                })}>
                                     Check Out
                                 </Button>
                             </Col>

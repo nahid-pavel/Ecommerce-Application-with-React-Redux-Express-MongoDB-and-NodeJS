@@ -16,7 +16,10 @@ const Header = () => {
         return state?.localStorage?.cartItems.reduce((a, b) => a + b?.totalQty, 0)
     }, shallowEqual)
 
-    console.log(totalItems, 'cartitems')
+    const { profileData } = useSelector(
+        (state) => state?.auth,
+        shallowEqual
+    );
 
 
 
@@ -34,7 +37,22 @@ const Header = () => {
                         <div className="totalItems"><span>{totalItems}</span></div>
                         <i class="fas fa-shopping-cart"></i></span>Cart
                     </div>
-                    <div><span style={{ cursor: 'pointer' }}><i class="fas fa-user  mx-1"></i></span>SignIn</div>
+                    {
+
+                        profileData?.isAuth ? (
+
+                            <div>
+                                <span style={{ cursor: 'pointer' }}>
+                                    <i class="fas fa-user  mx-1"></i>
+                                </span>{profileData?.name}
+                            </div>
+                        ) : (
+                                <div><span style={{ cursor: 'pointer' }}><i class="fas fa-user  mx-1"></i></span>SignIn</div>
+                            )
+
+
+                    }
+
                 </div>
             </div>
 
