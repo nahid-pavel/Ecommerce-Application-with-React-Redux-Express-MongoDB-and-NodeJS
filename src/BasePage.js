@@ -1,8 +1,8 @@
 import React from 'react';
 import Header from './header/Header';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
-
+import { Container, Nav, NavDropdown } from 'react-bootstrap';
+import { useSelector, shallowEqual } from "react-redux";
 import ProductPages from './component/product/ProductPages';
 import CartItems from './component/cart/CartItems';
 import Checkout from './component/checkout/Checkout';
@@ -11,13 +11,19 @@ import SignUp from './auth/signUp/SignUp';
 
 
 
+
 const BasePage = () => {
+    const [isOpenProfileSidebar, setIsOpenProfileSidebar] = React.useState(true);
+    const { profileData } = useSelector(
+        (state) => state?.auth,
+        shallowEqual
+    );
 
     return (
         <div className="main">
             <Router>
                 <div className="header-wrapper">
-                    <Header />
+                    <Header isOpenProfileSidebar={isOpenProfileSidebar} setIsOpenProfileSidebar={setIsOpenProfileSidebar} />
                 </div>
                 <Container className="body-inner">
                     <Switch>

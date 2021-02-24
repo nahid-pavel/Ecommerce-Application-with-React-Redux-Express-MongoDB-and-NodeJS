@@ -17,7 +17,14 @@ export const authSlice = createSlice({
                 isAuth: true
             }
 
-        }
+        },
+        setLogout: (state, action) => {
+            state.profileData = {
+                isAuth: false
+            }
+
+        },
+
     }
 
 

@@ -1,8 +1,10 @@
+import { setCartItemsEmptyActions } from '../../localStorageRedux/Actions';
 import * as requestedServer from './Api';
 import { authSlice } from './Slice';
 const { actions: slice } = authSlice;
 
-export const loginAction = (email, password, setLoading, history, link) => (dispatch) => {
+
+export const loginAction = (email, password, setLoading, history, link, setMessage) => (dispatch) => {
 
     setLoading(true)
     return requestedServer.loginApi(email, password).then((res) => {
@@ -17,8 +19,13 @@ export const loginAction = (email, password, setLoading, history, link) => (disp
 
     }).catch((err) => {
         setLoading(false);
-        console.log(err?.response?.data?.message)
+        setMessage(err?.response?.data?.message)
 
 
     })
+}
+
+export const logOutAction = () => (dispatch) => {
+    dispatch(slice.setLogout());
+    dispatch(setCartItemsEmptyActions());
 }

@@ -11,3 +11,7 @@ export const removeAddToCartActions = (payload) => (dispatch) => {
 
     dispatch(slice.removeCartItems(payload))
 }
+
+export const setCartItemsEmptyActions = () => (dispatch) => {
+    dispatch(slice.setCartItemsEmpty())
+}

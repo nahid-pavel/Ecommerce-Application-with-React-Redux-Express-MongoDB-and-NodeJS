@@ -1,7 +1,10 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Nav, NavDropdown } from 'react-bootstrap';
 import { useSelector, shallowEqual } from "react-redux";
 import { useHistory } from 'react-router-dom';
+import { logOutAction } from '../auth/redux/Actions';
+import { useDispatch } from 'react-redux';
+
 
 
 
@@ -9,8 +12,13 @@ import { useHistory } from 'react-router-dom';
 import './header.css';
 
 
-const Header = () => {
+const Header = ({
+    isOpenProfileSidebar,
+    setIsOpenProfileSidebar
+}
+) => {
     const history = useHistory();
+    const dispatch = useDispatch()
 
     const totalItems = useSelector(state => {
         return state?.localStorage?.cartItems.reduce((a, b) => a + b?.totalQty, 0)
@@ -23,11 +31,12 @@ const Header = () => {
 
 
 
+
     return (
 
         <Container>
             <div className="d-flex justify-content-between align-items-center  ">
-                <div className="logo">
+                <div className="logo" onClick={() => history.push('/')}>
                     <h3>EShop</h3>
                 </div>
                 <div className="d-flex justify-content-between  align-items-center" >
@@ -41,14 +50,28 @@ const Header = () => {
 
                         profileData?.isAuth ? (
 
-                            <div>
-                                <span style={{ cursor: 'pointer' }}>
-                                    <i class="fas fa-user  mx-1"></i>
-                                </span>{profileData?.name}
-                            </div>
+
+                            <NavDropdown title={profileData?.name.split('')[0].toUpperCase() + profileData?.name.slice(1,)} id='username'>
+
+                                <NavDropdown.Item>Profile</NavDropdown.Item>
+
+                                <NavDropdown.Item onClick={() => {
+                                    history.push("/");
+                                    dispatch(logOutAction())
+                                }}>
+                                    Logout
+                                    </NavDropdown.Item>
+                            </NavDropdown>
                         ) : (
-                                <div><span style={{ cursor: 'pointer' }}><i class="fas fa-user  mx-1"></i></span>SignIn</div>
+
+                                <Nav.Link>
+                                    <span onClick={() => history.push('/login')}> <i className='fas fa-user'></i> Login</span>
+
+                                </Nav.Link>
+
                             )
+
+
 
 
                     }
@@ -56,7 +79,7 @@ const Header = () => {
                 </div>
             </div>
 
-        </Container>
+        </Container >
 
 
 

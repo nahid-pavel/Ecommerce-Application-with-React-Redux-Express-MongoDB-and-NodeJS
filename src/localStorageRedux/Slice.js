@@ -32,7 +32,11 @@ export const localStorageSlice = createSlice({
             state.cartItems = filteredItems;
 
 
-        }
+        },
+        setCartItemsEmpty: (state, action) => {
+            state.cartItems = []
+
+        },
     }
 
 
