@@ -29,3 +29,23 @@ export const logOutAction = () => (dispatch) => {
     dispatch(slice.setLogout());
     dispatch(setCartItemsEmptyActions());
 }
+
+export const getUserProfileActions = () => (dispatch) => {
+
+    return requestedServer.getUserProfile().then((res) => {
+        const { status, data } = res;
+        if (status === 200) {
+
+
+            dispatch(slice.setUserProfile(data));
+
+
+        }
+
+    }).catch((err) => {
+
+        console.log(err)
+
+    })
+
+}

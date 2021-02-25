@@ -24,6 +24,14 @@ export const authSlice = createSlice({
             }
 
         },
+        setUserProfile: (state, action) => {
+            const { payload } = action;
+            state.profileData = {
+                ...state.profileData,
+                name: payload?.name,
+                email: payload?.email
+            };
+        },
 
     }
 

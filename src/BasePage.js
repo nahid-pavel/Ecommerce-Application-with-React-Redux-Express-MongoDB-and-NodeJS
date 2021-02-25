@@ -8,6 +8,9 @@ import CartItems from './component/cart/CartItems';
 import Checkout from './component/checkout/Checkout';
 import Login from './auth/login/Login';
 import SignUp from './auth/signUp/SignUp';
+import Profile from './component/profile/Profile';
+import axios from 'axios';
+
 
 
 
@@ -18,6 +21,7 @@ const BasePage = () => {
         (state) => state?.auth,
         shallowEqual
     );
+
 
     return (
         <div className="main">
@@ -32,6 +36,7 @@ const BasePage = () => {
                         <Route path="/cartItems" component={CartItems} />
                         <Route path="/checkout" component={Checkout} />
                         <Route path="/login" component={Login} />
+                        <Route path="/profile" component={Profile} />
                         <Route path="/signup" component={SignUp} />
                         <Redirect to="/error" component={() => <h1>Error 404!</h1>} />
 

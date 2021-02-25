@@ -53,7 +53,7 @@ const Header = ({
 
                             <NavDropdown title={profileData?.name.split('')[0].toUpperCase() + profileData?.name.slice(1,)} id='username'>
 
-                                <NavDropdown.Item>Profile</NavDropdown.Item>
+                                <NavDropdown.Item onClick={() => history.push('/profile')}>Profile</NavDropdown.Item>
 
                                 <NavDropdown.Item onClick={() => {
                                     history.push("/");

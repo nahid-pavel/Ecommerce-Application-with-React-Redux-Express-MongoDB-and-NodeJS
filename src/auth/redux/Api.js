@@ -7,3 +7,13 @@ export const loginApi = (email, password, cb) => {
         password
     })
 }
+
+export const getUserProfile = async () => {
+    return await axios.get('https://arcane-ravine-98370.herokuapp.com/https://eshop99-api.herokuapp.com/api/users/profile');
+
+
+
+
+
+
+}
