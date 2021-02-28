@@ -4,11 +4,6 @@ import { useSelector, shallowEqual } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import { logOutAction } from '../auth/redux/Actions';
 import { useDispatch } from 'react-redux';
-
-
-
-
-
 import './header.css';
 
 
