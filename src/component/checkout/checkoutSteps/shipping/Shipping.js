@@ -3,11 +3,16 @@ import { Formik } from 'formik';
 import './shipping.css';
 import FormikInput from '../../../../_helper/FormikInput';
 import Select from 'react-select';
+import { useSelector, shallowEqual } from "react-redux";
+import { useDispatch } from 'react-redux';
 import './shipping.css';
 import { Nav } from 'react-bootstrap';
+import { setShippingInfoActions } from '../../../../localStorageRedux/Actions';
 
 
 export default function Shipping({ setCurrentStep }) {
+    const cartItems = useSelector((state) => state?.localStorage?.cartItems, shallowEqual);
+    const dispatch = useDispatch();
     return (
         <>
             <Nav className="justify-content-center mb-4">
@@ -27,7 +32,7 @@ export default function Shipping({ setCurrentStep }) {
                 // validationSchema={RegistrationSchema}
 
                 onSubmit={(values, { setSubmitting }) => {
-
+                    dispatch(setShippingInfoActions(values));
 
                 }}
             >
@@ -83,7 +88,7 @@ export default function Shipping({ setCurrentStep }) {
                                             <div className="form-group">
                                                 <label className="font-weight-bold">Postal Code</label>
                                                 <FormikInput
-                                                    type="password"
+                                                    type="number"
                                                     className="form-control"
                                                     value={values?.postalCode}
                                                     placeholder="Postal Code"
@@ -97,8 +102,8 @@ export default function Shipping({ setCurrentStep }) {
                                                 <Select
                                                     name="country"
                                                     value={values?.country}
-                                                    options={{ value: 1, label: "Bangladesh" }}
-                                                    onChange={(v) => setFieldValue(v)}
+                                                    options={[{ value: 1, label: "Bangladesh" }]}
+                                                    onChange={(v) => setFieldValue("country", v)}
 
 
 
@@ -110,6 +115,7 @@ export default function Shipping({ setCurrentStep }) {
                                                 type="submit"
                                                 className="signup-page-btn1"
                                                 onClick={() => setCurrentStep("two")}
+                                                disabled={!values?.address || !values?.city || !values?.postalCode || !values?.country}
 
 
                                             >

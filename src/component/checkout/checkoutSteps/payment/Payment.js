@@ -3,9 +3,12 @@ import { Field, Formik } from 'formik';
 
 import './payment.css';
 import { Nav } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { setPaymentInfoActions } from '../../../../localStorageRedux/Actions';
 
 
 export default function Payment({ setCurrentStep }) {
+    const dispatch = useDispatch();
     return (
         <>
             <Nav className="justify-content-center mb-4">
@@ -26,7 +29,7 @@ export default function Payment({ setCurrentStep }) {
                 // validationSchema={RegistrationSchema}
 
                 onSubmit={(values, { setSubmitting }) => {
-
+                    dispatch(setPaymentInfoActions(values))
 
                 }}
             >

@@ -2,6 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initState = {
     cartItems: [],
+    shippingInfo: "",
+    paymentMethod: ""
+
 
 
 }
@@ -37,6 +40,17 @@ export const localStorageSlice = createSlice({
             state.cartItems = []
 
         },
+        setShippingInfo: (state, action) => {
+            const { payload } = action;
+            state.shippingInfo = payload;
+
+        },
+        setPaymentMethod: (state, action) => {
+            const { payload } = action;
+            console.log('got payload', payload)
+            state.paymentMethod = payload.payment
+
+        }
     }
 
 

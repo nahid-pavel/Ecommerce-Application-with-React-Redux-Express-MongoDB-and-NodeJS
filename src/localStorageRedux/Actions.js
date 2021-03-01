@@ -15,3 +15,11 @@ export const removeAddToCartActions = (payload) => (dispatch) => {
 export const setCartItemsEmptyActions = () => (dispatch) => {
     dispatch(slice.setCartItemsEmpty())
 }
+export const setShippingInfoActions = (payload) => (dispatch) => {
+    dispatch(slice.setShippingInfo(payload))
+
+}
+export const setPaymentInfoActions = (payload) => (dispatch) => {
+    dispatch(slice.setPaymentMethod(payload))
+
+}
