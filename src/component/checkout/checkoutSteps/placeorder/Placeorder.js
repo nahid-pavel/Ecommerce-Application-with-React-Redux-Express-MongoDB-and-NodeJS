@@ -2,18 +2,55 @@ import React from 'react';
 import { Col, Nav, Row, ListGroup, Image, Button } from 'react-bootstrap';
 import { useSelector, shallowEqual } from "react-redux";
 import { numberFormatTwoDecimal } from '../../../../utils/NumberFormatTwoDecimal';
+import { useHistory } from 'react-router-dom';
+import { orderCreate } from './actions';
 
 
 export default function Placeorder({ setCurrentStep }) {
 
     const items = useSelector(state => state?.localStorage?.cartItems, shallowEqual);
     const { shippingInfo, paymentMethod } = useSelector(state => state?.localStorage, shallowEqual);
+    const { loading, setLoading } = React.useState(false);
+    const history = useHistory();
 
     console.log('items', items)
     const totalPrice = items?.reduce((a, b) => a + b?.totalQty * b?.price, 0)
     const shippingPrice = totalPrice > 1000 ? 0 : 100;
     const tax = (0.15 * totalPrice);
     const amount = totalPrice + shippingPrice + tax;
+    const [order, setOrder] = React.useState("");
+
+
+    const placeOrderHandler = () => {
+        const payload = {
+            orderItems: items?.map(item => {
+                return {
+                    ...item,
+                    name: item?.name,
+                    qty: item?.totalQty,
+                    image: item?.image,
+                    price: item?.price,
+                    product: item?._id
+
+
+
+
+
+                }
+            }),
+            shippingAddress: {
+                ...shippingInfo, country: shippingInfo.country.label
+            },
+            paymentMethod: paymentMethod,
+            itemsPrice: totalPrice,
+            taxPrice: tax,
+            shippingPrice: shippingPrice,
+            totalPrice: amount
+        }
+
+        orderCreate(payload, setOrder, history)
+
+    }
 
 
     return (
@@ -131,7 +168,7 @@ export default function Placeorder({ setCurrentStep }) {
                             </Row>
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            <Button className="btn btn-block btn-dark">Place Order</Button>
+                            <Button className="btn btn-block btn-dark" onClick={() => placeOrderHandler()}>Place Order</Button>
                         </ListGroup.Item>
                     </ListGroup>
 

@@ -10,6 +10,7 @@ import Login from './auth/login/Login';
 import SignUp from './auth/signUp/SignUp';
 import Profile from './component/profile/Profile';
 import axios from 'axios';
+import Order from './component/checkout/checkoutSteps/order/Order';
 
 
 
@@ -35,6 +36,7 @@ const BasePage = () => {
                         <Route path="/products" component={ProductPages} />
                         <Route path="/cartItems" component={CartItems} />
                         <Route path="/checkout" component={Checkout} />
+                        <Route path="/order/:id" component={Order} />
                         <Route path="/login" component={Login} />
                         <Route path="/profile" component={Profile} />
                         <Route path="/signup" component={SignUp} />
