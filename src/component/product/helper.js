@@ -1,15 +1,15 @@
 import axios from 'axios';
 
 
-export const getAllProducts = async (setter, setLoading) => {
-    setLoading(true)
+export const getAllProducts = async (setter, setLoading, pageNo, pageSize) => {
+    setLoading(true);
+    const url = pageNo && pageSize?`https://arcane-ravine-98370.herokuapp.com/https://eshop99-api.herokuapp.com/api/products?pageNo=${+pageNo}&pageSize=${+pageSize}`:`https://arcane-ravine-98370.herokuapp.com/https://eshop99-api.herokuapp.com/api/products`
     try {
 
-        const res = await axios.get('https://arcane-ravine-98370.herokuapp.com/https://eshop99-api.herokuapp.com/api/products');
+        const res = await axios.get(url);
         if (res.status === 200 && res?.data) {
-            console.log(res?.data?.products);
-
-            setter(res?.data?.products);
+            console.log(res?.data)
+            setter(res?.data);
             setLoading(false)
 
         }
