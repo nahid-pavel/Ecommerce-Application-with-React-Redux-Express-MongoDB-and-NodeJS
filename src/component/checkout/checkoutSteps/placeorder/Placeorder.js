@@ -10,7 +10,7 @@ export default function Placeorder({ setCurrentStep }) {
 
     const items = useSelector(state => state?.localStorage?.cartItems, shallowEqual);
     const { shippingInfo, paymentMethod } = useSelector(state => state?.localStorage, shallowEqual);
-    const { loading, setLoading } = React.useState(false);
+  
     const history = useHistory();
 
     console.log('items', items)
@@ -18,7 +18,7 @@ export default function Placeorder({ setCurrentStep }) {
     const shippingPrice = totalPrice > 1000 ? 0 : 100;
     const tax = (0.15 * totalPrice);
     const amount = totalPrice + shippingPrice + tax;
-    const [order, setOrder] = React.useState("");
+  
 
 
     const placeOrderHandler = () => {
@@ -48,7 +48,7 @@ export default function Placeorder({ setCurrentStep }) {
             totalPrice: amount
         }
 
-        orderCreate(payload, setOrder, history)
+        orderCreate(payload, history)
 
     }
 

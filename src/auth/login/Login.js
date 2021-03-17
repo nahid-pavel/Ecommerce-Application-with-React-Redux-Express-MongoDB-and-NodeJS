@@ -20,7 +20,7 @@ export default function Login() {
         password: Yup.string().required("Password is required")
 
     })
-    const [loading, setLoading] = React.useState(false);
+   
     const [message, setMessage] = React.useState('');
 
     const location = useLocation();
@@ -37,9 +37,9 @@ export default function Login() {
             initialValues={{ email: '', password: '' }}
             validationSchema={loginSchema}
 
-            onSubmit={(values, { setSubmitting, resetForm }) => {
+            onSubmit={(values) => {
                 console.log('got', values)
-                dispatch(loginAction(values?.email, values?.password, setLoading, history, link, setMessage))
+                dispatch(loginAction(values?.email, values?.password, history, link, setMessage))
 
             }}
         >
@@ -47,10 +47,9 @@ export default function Login() {
                 values,
                 errors,
                 touched,
-                handleChange,
-                handleBlur,
+               
                 handleSubmit,
-                isSubmitting,
+               
                 /* and other goodies */
             }) => (
                 <>

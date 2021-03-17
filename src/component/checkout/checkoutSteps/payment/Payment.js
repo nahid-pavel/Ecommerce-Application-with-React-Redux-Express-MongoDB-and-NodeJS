@@ -28,7 +28,7 @@ export default function Payment({ setCurrentStep }) {
                 initialValues={{ payment: "" }}
                 // validationSchema={RegistrationSchema}
 
-                onSubmit={(values, { setSubmitting }) => {
+                onSubmit={(values) => {
                     dispatch(setPaymentInfoActions(values))
 
                 }}
@@ -36,12 +36,11 @@ export default function Payment({ setCurrentStep }) {
                 {({
                     values,
                     errors,
-                    touched,
-                    handleChange,
-                    handleBlur,
+                  
+                    
                     handleSubmit,
                     setFieldValue,
-                    isSubmitting,
+                  
                     /* and other goodies */
                 }) => (
                     <>

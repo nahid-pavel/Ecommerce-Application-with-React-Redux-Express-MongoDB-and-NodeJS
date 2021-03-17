@@ -20,7 +20,7 @@ export default function Profile() {
 
     const [message, setMessage] = React.useState('');
     const [singleData, setSingleData] = React.useState("");
-    const [loading, setLoading] = React.useState(false);
+   
     const { profileData } = useSelector((state) => state?.auth, shallowEqual);
     console.log('profileData', profileData?._id)
 
@@ -55,8 +55,8 @@ export default function Profile() {
                 initialValues={singleData}
                 // validationSchema={RegistrationSchema}
 
-                onSubmit={(values, { setSubmitting }) => {
-                    updateUserProfile(values, setLoading, setMessage, getUserProfileById)
+                onSubmit={(values) => {
+                    updateUserProfile(values, setMessage, getUserProfileById)
 
                 }}
             >
@@ -64,10 +64,9 @@ export default function Profile() {
                     values,
                     errors,
                     touched,
-                    handleChange,
-                    handleBlur,
+                  
                     handleSubmit,
-                    isSubmitting,
+                   
                     /* and other goodies */
                 }) => (
                     <>

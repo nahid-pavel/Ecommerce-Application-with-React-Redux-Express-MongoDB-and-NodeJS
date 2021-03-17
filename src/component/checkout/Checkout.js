@@ -4,7 +4,7 @@ import { useSelector, shallowEqual } from "react-redux";
 import Shipping from './checkoutSteps/shipping/Shipping';
 import Payment from './checkoutSteps/payment/Payment';
 import Placeorder from './checkoutSteps/placeorder/Placeorder';
-import { Nav } from 'react-bootstrap';
+
 
 
 

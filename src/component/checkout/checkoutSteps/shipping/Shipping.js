@@ -3,7 +3,7 @@ import { Formik } from 'formik';
 import './shipping.css';
 import FormikInput from '../../../../_helper/FormikInput';
 import Select from 'react-select';
-import { useSelector, shallowEqual } from "react-redux";
+
 import { useDispatch } from 'react-redux';
 import './shipping.css';
 import { Nav } from 'react-bootstrap';
@@ -11,7 +11,7 @@ import { setShippingInfoActions } from '../../../../localStorageRedux/Actions';
 
 
 export default function Shipping({ setCurrentStep }) {
-    const cartItems = useSelector((state) => state?.localStorage?.cartItems, shallowEqual);
+   
     const dispatch = useDispatch();
     return (
         <>
@@ -31,7 +31,7 @@ export default function Shipping({ setCurrentStep }) {
                 initialValues={{ address: "", city: "", postalCode: "", country: "" }}
                 // validationSchema={RegistrationSchema}
 
-                onSubmit={(values, { setSubmitting }) => {
+                onSubmit={(values) => {
                     dispatch(setShippingInfoActions(values));
 
                 }}
@@ -40,11 +40,10 @@ export default function Shipping({ setCurrentStep }) {
                     values,
                     errors,
                     touched,
-                    handleChange,
-                    handleBlur,
+                   
                     handleSubmit,
                     setFieldValue,
-                    isSubmitting,
+                   
                     /* and other goodies */
                 }) => (
                     <>

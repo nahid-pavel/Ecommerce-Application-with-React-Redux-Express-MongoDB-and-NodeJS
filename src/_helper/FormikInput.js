@@ -3,7 +3,7 @@ import { Field } from 'formik';
 import FormikError from "./FormikError";
 
 const FormikInput = (props) => {
-    const { value, name, type, placeholder, label, errors, touched } = props
+    const { value, name, type, placeholder, errors, touched } = props
     return (
         <>
             <Field

@@ -7,10 +7,7 @@ import { useDispatch } from 'react-redux';
 import './header.css';
 
 
-const Header = ({
-    isOpenProfileSidebar,
-    setIsOpenProfileSidebar
-}
+const Header = (
 ) => {
     const history = useHistory();
     const dispatch = useDispatch()
@@ -39,7 +36,7 @@ const Header = ({
                         () => history.push('/cartItems')
                     }>
                         <div className="totalItems"><span>{totalItems}</span></div>
-                        <i class="fas fa-shopping-cart"></i></span>Cart
+                        <i className="fas fa-shopping-cart"></i></span>Cart
                     </div>
                     {
 

@@ -5,7 +5,7 @@ import { getSingleProduct } from './helper';
 import { Image, ListGroup, Button } from 'react-bootstrap';
 import Rating from '../../_helper/Rating';
 import Loading from '../../_helper/Loading';
-import FormikInput from '../../_helper/FormikInput';
+
 import Select from 'react-select';
 import { useDispatch } from 'react-redux';
 import { setAddToCartActions } from '../../localStorageRedux/Actions';

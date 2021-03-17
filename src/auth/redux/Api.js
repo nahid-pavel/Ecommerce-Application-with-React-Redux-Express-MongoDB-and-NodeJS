@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const loginApi = (email, password, cb) => {
+export const loginApi = (email, password) => {
     return axios.post(`https://arcane-ravine-98370.herokuapp.com/http://eshop99-api.herokuapp.com/api/users/login`, {
 
         email,

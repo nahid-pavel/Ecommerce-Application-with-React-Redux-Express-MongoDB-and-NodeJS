@@ -1,9 +1,9 @@
 import { Formik } from 'formik';
 import React, { useState } from 'react';
 import * as Yup from 'yup';
-import { useDispatch } from 'react-redux';
+
 import FormikInput from '../../_helper/FormikInput';
-import { loginAction } from '../../auth/redux/Actions';
+
 import { useHistory } from 'react-router-dom';
 import { Alert } from 'react-bootstrap';
 import { createAccount } from './helper';
@@ -15,8 +15,7 @@ import { createAccount } from './helper';
 
 
 export default function SignUp() {
-    const dispatch = useDispatch();
-    const [loading, setLoading] = useState(false);
+   
     const [message, setMessage] = useState('');
     const history = useHistory();
 
@@ -36,19 +35,18 @@ export default function SignUp() {
             initialValues={{ name: '', email: '', password: '' }}
             validationSchema={RegistrationSchema}
 
-            onSubmit={(values, { setSubmitting }) => {
+            onSubmit={(values) => {
                 console.log('got', values)
-                createAccount(values?.name, values?.email, values?.password, setLoading, setMessage, history)
+                createAccount(values?.name, values?.email, values?.password,  setMessage, history)
             }}
         >
             {({
                 values,
                 errors,
                 touched,
-                handleChange,
-                handleBlur,
+               
                 handleSubmit,
-                isSubmitting,
+              
                 /* and other goodies */
             }) => (
                 <>
@@ -157,4 +155,4 @@ export default function SignUp() {
             )}
         </Formik>
     );
-};
+}
