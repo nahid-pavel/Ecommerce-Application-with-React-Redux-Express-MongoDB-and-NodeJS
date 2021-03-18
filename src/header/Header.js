@@ -4,7 +4,9 @@ import { useSelector, shallowEqual } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import { logOutAction } from '../auth/redux/Actions';
 import { useDispatch } from 'react-redux';
+
 import './header.css';
+import SearchBox from './SearchBox';
 
 
 const Header = (
@@ -30,6 +32,9 @@ const Header = (
             <div className="d-flex justify-content-between align-items-center  ">
                 <div className="logo" onClick={() => history.push('/')}>
                     <h3>EShop</h3>
+                </div>
+                <div className="searchField">
+                  <SearchBox />
                 </div>
                 <div className="d-flex justify-content-between  align-items-center" >
                     <div className="mx-4" style={{ position: 'relative' }}><span style={{ cursor: 'pointer' }} onClick={

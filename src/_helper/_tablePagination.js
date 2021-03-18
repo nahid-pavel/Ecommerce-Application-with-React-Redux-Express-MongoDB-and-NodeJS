@@ -14,6 +14,17 @@ const useStyles1 = makeStyles((theme) => ({
     flexShrink: 0,
     marginLeft: theme.spacing(2.5),
   },
+  table: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width:'100%',
+    border:'1px solid #ccc',
+    marginBottom:10,
+    '& .MuiTablePagination-toolbar':{
+      paddingLeft:'400px !important'
+    }
+  }
 }));
 
 function TablePaginationActions(props) {
@@ -93,7 +104,8 @@ export default function PaginationTable({
   values,
 }) {
 
-  console.log('count',count)
+  console.log('count', count)
+  const classes = useStyles1();
   const { pageNo, setPageNo, pageSize, setPageSize } = paginationState;
   const handleChangePage = (event, newPage) => {
     setPageNo(newPage);
@@ -107,19 +119,24 @@ export default function PaginationTable({
   };
 
   return (
-    <TablePagination
-      rowsPerPageOptions={[2,15, 25, 50, 100, 200, 300, 400, 500]}
-      colSpan={3}
-      count={count}
-      rowsPerPage={pageSize}
-      page={pageNo}
-      SelectProps={{
-        inputProps: { "aria-label": "rows per page" },
-        native: true,
-      }}
-      onChangePage={handleChangePage}
-      onChangeRowsPerPage={handleChangeRowsPerPage}
-      ActionsComponent={TablePaginationActions}
-    />
+    <div className={classes.table}>
+      <TablePagination
+        rowsPerPageOptions={[5, 10,15,20]}
+        colSpan={3}
+        count={count}
+        rowsPerPage={pageSize}
+        labelRowsPerPage={"Products Per Page"}
+        page={pageNo}
+        SelectProps={{
+          inputProps: { "aria-label": "Products Per Page" },
+         
+        }}
+
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
+        ActionsComponent={TablePaginationActions}
+      />
+    </div>
+
   );
 }

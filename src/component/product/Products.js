@@ -1,35 +1,54 @@
 import React, { useState, useEffect } from 'react';
-import { getAllProducts } from './helper';
 
+import {useSelector,shallowEqual} from 'react-redux';
 import ItemCard from '../../_helper/ItemCard';
 import Loading from '../../_helper/Loading';
 import './product.css';
+import {useDispatch} from 'react-redux';
 import Carousal from './Carousal';
 import { Container } from 'react-bootstrap';
 import PaginationTable from '../../_helper/_tablePagination';
+import { getAllProductsActions } from './_redux/Actions';
+
 
 const Products = () => {
-    const [products, setProducts] = useState("");
+    const dispatch = useDispatch();
+    
     const [loading, setLoading] = useState(true);
     const [pageNo, setPageNo] = useState(0)
-    const [pageSize, setPageSize] = useState(15)
+    const [pageSize, setPageSize] = useState(15);
+    const products = useSelector((state) => {
+        return state.product?.allProducts;
+      }, shallowEqual);
     const setPositionHandler = (pageNo, pageSize) => {
-        getAllProducts(
-            setProducts,
-            setLoading,
-            pageNo,
-            pageSize
+        dispatch(
+            getAllProductsActions(
+                
+                setLoading,
+                pageNo,
+                pageSize
+            )
+
         )
+       
 
     }
 
 
 
     useEffect(() => {
-        getAllProducts(setProducts, setLoading)
+        dispatch(
+            getAllProductsActions(
+                
+                setLoading,
+                pageNo,
+                pageSize
+            )
+
+        )
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [getAllProducts])
+    }, [dispatch])
 
 
 
@@ -79,6 +98,7 @@ const Products = () => {
 
 
                             </div>
+                            <div className="pagination">
                             {
                                 products?.products?.length > 0 && (
                                     <PaginationTable
@@ -88,6 +108,9 @@ const Products = () => {
                                     />
                                 )
                             }
+
+                            </div>
+                           
                         </Container>
                     </>)
             }
