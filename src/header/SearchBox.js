@@ -3,12 +3,23 @@ import { Form, FormControl } from 'react-bootstrap';
 
 import './header.css';
 
-export default function SearchBox() {
+export default function SearchBox({placeholder, paginationSearchHandler, setIsEmpty,values} ) {
+    const [fieldValue,setFieldValue] = React.useState("")
     return (
         <Form inline className="input-group">
-            <FormControl type="text" placeholder="Enter your keyword" className="py-2  mr-1 pr-5" style={{ width: '90%' }} />
+            <FormControl type="text" placeholder={placeholder} className="py-2  mr-1 pr-5" style={{ width: '90%' }} onChange={(e)=>{
+                setFieldValue(e.target.value);
+                console.log(e.target.value)
+                if(e.target.value.length ===0){
+                   setIsEmpty(true)
+                }else{
+                    paginationSearchHandler(e.target.value)
+                    setIsEmpty(false)
+                }
+               
+            }} />
             <span className="input-group-append">
-                <button className="btn rounded-pill border-0 ml-n5" type="button" style={{zIndex:999}}>
+                <button className="btn rounded-pill border-0 ml-n5" type="button" style={{zIndex:999}} onClick={()=>paginationSearchHandler(fieldValue,values)}>
                     <i className="fa fa-search"></i>
                 </button>
             </span>
