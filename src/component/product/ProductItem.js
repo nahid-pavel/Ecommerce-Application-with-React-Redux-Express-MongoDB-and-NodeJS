@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 
 import { getSingleProduct } from './helper';
-import { Image, ListGroup, Button } from 'react-bootstrap';
+import { Image, ListGroup, Button,Container,Row,Col} from 'react-bootstrap';
 import Rating from '../../_helper/Rating';
 import Loading from '../../_helper/Loading';
 
 import Select from 'react-select';
 import { useDispatch } from 'react-redux';
 import { setAddToCartActions } from '../../localStorageRedux/Actions';
+import ProductReview from './ProductReview';
+
 
 
 
@@ -63,9 +65,10 @@ export default function ProductItem() {
 
 
 
-    return (
-        <>
-            {loading && <Loading />}
+    return   loading ?<Loading />:
+        <Container>
+           
+            
             <Button className="btn btn-light my-3" onClick={() => history.push('/')}>Go Back</Button>
             {product?.image &&
                 <div className="row mt-4">
@@ -155,7 +158,12 @@ export default function ProductItem() {
                     </div>
 
                 </div>}
+                <Row style={{display:'flex', justifyContent:'space-between',marginTop:'50px'}}>
+                    <Col md={6}  >
+                       <ProductReview />
+                    </Col>
+                </Row>
 
-        </>
-    )
+        </Container>
+    
 }

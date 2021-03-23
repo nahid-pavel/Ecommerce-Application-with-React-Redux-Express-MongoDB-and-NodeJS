@@ -9,7 +9,9 @@ import Login from './auth/login/Login';
 import SignUp from './auth/signUp/SignUp';
 import Profile from './component/profile/Profile';
 
+
 import Order from './component/checkout/checkoutSteps/order/Order';
+
 
 
 
@@ -17,10 +19,7 @@ import Order from './component/checkout/checkoutSteps/order/Order';
 
 const BasePage = () => {
     const [isOpenProfileSidebar, setIsOpenProfileSidebar] = React.useState(true);
-    // const { profileData } = useSelector(
-    //     (state) => state?.auth,
-    //     shallowEqual
-    // );
+   
 
 
     return (
@@ -39,7 +38,7 @@ const BasePage = () => {
                         <Route path="/order/:id" component={Order} />
                         <Route path="/login" component={Login} />
                         <Route path="/profile" component={Profile} />
-                        <Route path="/signup" component={SignUp} />
+                        <Route path="/signup" component={SignUp} />  
                         <Redirect to="/error" component={() => <h1>Error 404!</h1>} />
                  
 
