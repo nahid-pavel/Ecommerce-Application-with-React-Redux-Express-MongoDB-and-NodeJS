@@ -30,6 +30,7 @@ export const getAllProducts = async (setter, setLoading, pageNo, pageSize) => {
 }
 
 export const getSingleProduct = async (id, setter, setLoading) => {
+    console.log('from api product',id)
     setLoading(true)
     try {
 
@@ -69,7 +70,7 @@ export const uploadImages = async (files, uploadPreset = 'product_photos') => {
             });
             console.log(res, 'response image');
             photos.push(res.data.url);
-          
+
 
 
 
@@ -81,6 +82,19 @@ export const uploadImages = async (files, uploadPreset = 'product_photos') => {
 
     } catch (error) {
         return false;
+    }
+
+}
+export const submitReview =async (id,payload)=>{
+    try{
+        const res = await axios.post(`https://arcane-ravine-98370.herokuapp.com/https://eshop99-api.herokuapp.com/api/products/${id}/reviews`,payload);
+
+        console.log(res);
+
+
+    }catch(err){
+        console.log(err)
+
     }
 
 }

@@ -31,6 +31,16 @@
 
 
   }
+  .borderOne {
+   
+   border-bottom:  2px solid #dddddd;
+   margin:10px 5px;
+  }
+  .product_review > p{
+    font-family:verdana,arial,helvetica,sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+  }
   .textDirection > h2{
     font-weight: 500;
     margin:1rem 0;

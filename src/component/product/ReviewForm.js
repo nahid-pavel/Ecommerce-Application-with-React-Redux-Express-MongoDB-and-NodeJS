@@ -5,7 +5,8 @@ import { Row, Col, Button, Alert, Modal } from 'react-bootstrap';
 import FormikInput from '../../_helper/FormikInput';
 import { DropzoneDialogBase } from 'material-ui-dropzone'
 import * as Yup from 'yup';
-import { uploadImages } from './helper';
+import {  submitReview, uploadImages } from './helper';
+import {useSelector} from 'react-redux';
 
 
 
@@ -13,7 +14,8 @@ import { uploadImages } from './helper';
 
 
 
-export default function ReviewForm({ show, onHide,msg,setMsg }) {
+
+export default function ReviewForm({ show, onHide,msg,setMsg,productId }) {
     const [rating, setRating] = React.useState(0);
     const [open, setOpen] = React.useState(false);
     const [fileObjects, setFileObjects] = React.useState([]);
@@ -21,7 +23,10 @@ export default function ReviewForm({ show, onHide,msg,setMsg }) {
 
     const validationSchema = Yup.object().shape({
         comment: Yup.string().required('Comment is required')
-    })
+    });
+
+    const profile = useSelector(state=> state?.auth?.profileData);
+
     return (
         <Modal show={show} onHide={onHide} centered>
             <Modal.Header closeButton>
@@ -33,14 +38,23 @@ export default function ReviewForm({ show, onHide,msg,setMsg }) {
                 enableReinitialize={true}
                 initialValues={{ comment: '' }}
                 validationSchema={validationSchema}
-                onSubmit={async() => {
+                onSubmit={async(values) => {
                     if (!rating) {
                         setMsg('Please give a rating');
                       
                     } else {
                        
                        const uploadedImage =await  uploadImages(fileObjects)
-                       console.log(uploadedImage)
+                      const payload ={
+                          comment: values?.comment,
+                          name: profile?.name,
+                          rating: rating,
+                          imageUrl:uploadedImage[0],
+                          user:profile?._id
+
+                      }
+                      submitReview(productId,payload)
+                      
                     }
 
                 }}

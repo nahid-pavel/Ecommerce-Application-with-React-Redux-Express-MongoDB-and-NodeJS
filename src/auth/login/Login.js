@@ -6,6 +6,8 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { loginAction } from '../redux/Actions';
 import { Alert } from 'react-bootstrap';
+import Loading from '../../_helper/Loading';
+
 
 
 
@@ -22,6 +24,7 @@ export default function Login() {
     })
    
     const [message, setMessage] = React.useState('');
+    const [loading,setLoading] = React.useState(false);
 
     const location = useLocation();
     let link;
@@ -39,7 +42,7 @@ export default function Login() {
 
             onSubmit={(values) => {
                 console.log('got', values)
-                dispatch(loginAction(values?.email, values?.password, history, link, setMessage))
+                dispatch(loginAction(values?.email, values?.password,setLoading, history, link, setMessage))
 
             }}
         >
@@ -51,11 +54,12 @@ export default function Login() {
                 handleSubmit,
                
                 /* and other goodies */
-            }) => (
+            }) =>loading ? <Loading />:  (
                 <>
                     {message.length > 0 && <Alert variant={'success'}>
                         {message}
                     </Alert>}
+
                     <form onSubmit={handleSubmit}>
                         {console.log("errors", errors)}
 
