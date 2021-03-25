@@ -7,7 +7,7 @@ import FormikInput from '../../_helper/FormikInput';
 import { useHistory } from 'react-router-dom';
 import { Alert } from 'react-bootstrap';
 import { createAccount } from './helper';
-
+import Loading from '../../_helper/Loading';
 
 
 
@@ -15,8 +15,9 @@ import { createAccount } from './helper';
 
 
 export default function SignUp() {
-   
+
     const [message, setMessage] = useState('');
+    const [loading, setLoading] = useState(false);
     const history = useHistory();
 
 
@@ -29,26 +30,29 @@ export default function SignUp() {
         })
     })
     return (
-
-
+       <>
+       { loading && <Loading />}
         <Formik
             initialValues={{ name: '', email: '', password: '' }}
             validationSchema={RegistrationSchema}
 
             onSubmit={(values) => {
                 console.log('got', values)
-                createAccount(values?.name, values?.email, values?.password,  setMessage, history)
+                createAccount(values?.name, values?.email, values?.password, setLoading, setMessage, history);
             }}
         >
             {({
                 values,
                 errors,
                 touched,
-               
+
                 handleSubmit,
-              
+
                 /* and other goodies */
             }) => (
+               
+               
+                (
                 <>
                     {message.length > 0 && <Alert variant={'success'}>
                         {message}
@@ -151,8 +155,9 @@ export default function SignUp() {
                             </div>
                         </div>
                     </form>
-                </>
+                </>)
             )}
         </Formik>
+        </>
     );
 }

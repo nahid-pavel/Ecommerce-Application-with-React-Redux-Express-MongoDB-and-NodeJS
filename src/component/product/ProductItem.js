@@ -31,20 +31,19 @@ export default function ProductItem() {
     const [qty, setQty] = useState({ value: '1', label: '1' });
     const [qtyDDL, setQtyDDL] = useState([])
 
-
+    const getSingleProductById=()=>{
+        getSingleProduct(id, setProduct, setLoading)
+    }
 
 
 
 
     useEffect(() => {
         if (id) {
-            console.log('got id from useefect')
-
-            getSingleProduct(id, setProduct, setLoading)
-        } else {
-            console.log('kuch to garbar hai')
-        }
-
+           
+            getSingleProductById();
+          
+        } 
     }, [id])
     useEffect(() => {
 
@@ -166,7 +165,7 @@ export default function ProductItem() {
                 </div>}
             <Row style={{ display: 'flex', justifyContent: 'space-between', marginTop: '50px' }}>
                 <Col md={12}  >
-                    <ProductReview  productId={id} />
+                    <ProductReview  productId={id} getSingleProductById={getSingleProductById} />
                 </Col>
 
             </Row>

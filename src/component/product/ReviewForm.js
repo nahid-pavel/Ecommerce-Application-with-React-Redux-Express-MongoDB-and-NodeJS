@@ -5,20 +5,20 @@ import { Row, Col, Button, Alert, Modal } from 'react-bootstrap';
 import FormikInput from '../../_helper/FormikInput';
 import { DropzoneDialogBase } from 'material-ui-dropzone'
 import * as Yup from 'yup';
-import {  submitReview, uploadImages } from './helper';
+import {   submitReview, uploadImages } from './helper';
+import {useHistory} from 'react-router-dom';
 import {useSelector} from 'react-redux';
+import Loading from '../../_helper/Loading';
 
 
 
 
-
-
-
-
-export default function ReviewForm({ show, onHide,msg,setMsg,productId }) {
+export default function ReviewForm({ show, onHide,msg,setMsg,productId,handleClickClose,getSingleProductById }) {
     const [rating, setRating] = React.useState(0);
     const [open, setOpen] = React.useState(false);
     const [fileObjects, setFileObjects] = React.useState([]);
+    const [loading,setLoading] = React.useState(false)
+    const history = useHistory();
     
 
     const validationSchema = Yup.object().shape({
@@ -33,7 +33,8 @@ export default function ReviewForm({ show, onHide,msg,setMsg,productId }) {
                 <Modal.Title>Your Review</Modal.Title>
             </Modal.Header>
 
-          <Modal.Body>
+         <Modal.Body>
+             {loading && <Loading />}
             <Formik
                 enableReinitialize={true}
                 initialValues={{ comment: '' }}
@@ -53,7 +54,32 @@ export default function ReviewForm({ show, onHide,msg,setMsg,productId }) {
                           user:profile?._id
 
                       }
-                      submitReview(productId,payload)
+                     const res = await submitReview(productId,payload);
+                     console.log('got response',res)
+                     if(res?.success === false){
+                         if(res?.message==="Not authorized, token failed"){
+                            setLoading(true)
+                            setMsg("Please Login to Review");
+                           
+                            setTimeout(function () {
+                                history.push('/login');
+                              }, 2000);
+                         }else{
+                             setMsg(res?.message);
+                             
+                             setTimeout(function () {
+                                handleClickClose();
+                               setRating(0);
+                              }, 2000);
+                         }
+
+                     }else{
+                        getSingleProductById();
+                        handleClickClose();
+                        setMsg("");
+                        setRating(0);
+
+                     }
                       
                     }
 

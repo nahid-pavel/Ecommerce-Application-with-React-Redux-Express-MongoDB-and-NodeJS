@@ -7,7 +7,7 @@ import ReviewForm from './ReviewForm';
 
 
 
-export default function ProductReview({productId}) {
+export default function ProductReview({productId,getSingleProductById}) {
   const [open, setOpen] = React.useState(false);
   const [msg, setMsg] = React.useState("")
   const useStyles = makeStyles({
@@ -46,7 +46,7 @@ export default function ProductReview({productId}) {
         </Col>
       </Row>
      
-          <ReviewForm productId={productId} show={open} onHide={handleClickClose} handleClickClose={handleClickClose} msg={msg} setMsg={setMsg}/>
+          <ReviewForm productId={productId} show={open} onHide={handleClickClose} handleClickClose={handleClickClose} msg={msg} setMsg={setMsg}  getSingleProductById={getSingleProductById}/>
        
 
        

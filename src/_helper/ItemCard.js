@@ -1,8 +1,8 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import Rating from '@material-ui/lab/Rating';
 
-import Rating from './Rating';
 
 
 
@@ -19,7 +19,7 @@ export default function ItemCard({ link, name, description, imgSrc, price, ratin
                 </Card.Text>
                 {/* {rating && <Rating />} */}
                 <Card.Text as='h3'>{price} TK.</Card.Text>
-                {rating?.value >= 0 ? <Rating value={rating?.value} text={rating?.text} color={rating?.color} /> : ''}
+                {rating?.value >= 0 ?<Rating readOnly size="small" name="simple-controlled" value={rating?.value} />: ''}
 
 
             </Card.Body>
