@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-import {useSelector,shallowEqual} from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import ItemCard from '../../_helper/ItemCard';
 import Loading from '../../_helper/Loading';
 import './product.css';
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Carousal from './Carousal';
 import { Container } from 'react-bootstrap';
 import PaginationTable from '../../_helper/_tablePagination';
@@ -13,24 +13,24 @@ import { getAllProductsActions } from './_redux/Actions';
 
 const Products = () => {
     const dispatch = useDispatch();
-    
+
     const [loading, setLoading] = useState(true);
     const [pageNo, setPageNo] = useState(0)
     const [pageSize, setPageSize] = useState(15);
     const products = useSelector((state) => {
         return state.product?.allProducts;
-      }, shallowEqual);
+    }, shallowEqual);
     const setPositionHandler = (pageNo, pageSize) => {
         dispatch(
             getAllProductsActions(
-                
+
                 setLoading,
                 pageNo,
                 pageSize
             )
 
         )
-       
+
 
     }
 
@@ -39,7 +39,7 @@ const Products = () => {
     useEffect(() => {
         dispatch(
             getAllProductsActions(
-                
+
                 setLoading,
                 pageNo,
                 pageSize
@@ -53,7 +53,7 @@ const Products = () => {
 
 
     return (
-        <>
+        <div className='home'>
 
 
 
@@ -62,9 +62,21 @@ const Products = () => {
 
                 (
                     <>
-                        <Carousal products={products?.products} />
+                        <Container>
+                            <Carousal products={products?.products} />
+                        </Container>
+
                         <Container>
                             <div className="row">
+                                <div className="col-md-12 mt-5 collections-title">
+                                    <h2>Collections</h2>
+                                    
+                                </div>
+
+                            </div>
+
+                            <div className="row">
+
 
 
                                 {
@@ -99,18 +111,18 @@ const Products = () => {
 
                             </div>
                             <div className="pagination">
-                            {
-                                products?.products?.length > 0 && (
-                                    <PaginationTable
-                                        count={products?.totalCount}
-                                        setPositionHandler={setPositionHandler}
-                                        paginationState={{ pageNo, setPageNo, pageSize, setPageSize }}
-                                    />
-                                )
-                            }
+                                {
+                                    products?.products?.length > 0 && (
+                                        <PaginationTable
+                                            count={products?.totalCount}
+                                            setPositionHandler={setPositionHandler}
+                                            paginationState={{ pageNo, setPageNo, pageSize, setPageSize }}
+                                        />
+                                    )
+                                }
 
                             </div>
-                           
+
                         </Container>
                     </>)
             }
@@ -118,7 +130,7 @@ const Products = () => {
 
 
 
-        </>
+        </div>
     )
 
 

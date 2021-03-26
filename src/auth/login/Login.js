@@ -14,6 +14,7 @@ import Loading from '../../_helper/Loading';
 
 export default function Login() {
     const dispatch = useDispatch();
+    const [show,setShow]=React.useState(false);
 
     const history = useHistory();
     const loginSchema = Yup.object().shape({
@@ -22,9 +23,9 @@ export default function Login() {
         password: Yup.string().required("Password is required")
 
     })
-   
+
     const [message, setMessage] = React.useState('');
-    const [loading,setLoading] = React.useState(false);
+    const [loading, setLoading] = React.useState(false);
 
     const location = useLocation();
     let link;
@@ -42,7 +43,7 @@ export default function Login() {
 
             onSubmit={(values) => {
                 console.log('got', values)
-                dispatch(loginAction(values?.email, values?.password,setLoading, history, link, setMessage))
+                dispatch(loginAction(values?.email, values?.password, setLoading, history, link, setMessage,setShow))
 
             }}
         >
@@ -50,16 +51,13 @@ export default function Login() {
                 values,
                 errors,
                 touched,
-               
-                handleSubmit,
-               
-                /* and other goodies */
-            }) =>loading ? <Loading />:  (
-                <>
-                    {message.length > 0 && <Alert variant={'success'}>
-                        {message}
-                    </Alert>}
 
+                handleSubmit,
+
+                /* and other goodies */
+            }) => 
+                <>
+                    {loading && <Loading /> }
                     <form onSubmit={handleSubmit}>
                         {console.log("errors", errors)}
 
@@ -67,7 +65,11 @@ export default function Login() {
                             <div className="container">
                                 <div className="row login">
                                     <div className="col-lg-3"></div>
-                                    <div className="col-lg-6">
+                                    <div className="col-lg-6 mt-4">
+                                        {show && <Alert variant={'success'} onClose={() => setShow(false)} dismissible>
+                                            {message}
+                                        </Alert>}
+
                                         <div>
                                             <h1 className="text-center">Log In</h1>
 
@@ -121,7 +123,7 @@ export default function Login() {
                         </div>
                     </form>
                 </>
-            )}
+            }
         </Formik>
 
     )

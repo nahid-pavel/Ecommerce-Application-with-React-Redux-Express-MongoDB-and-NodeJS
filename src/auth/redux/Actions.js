@@ -4,7 +4,7 @@ import { authSlice } from './Slice';
 const { actions: slice } = authSlice;
 
 
-export const loginAction = (email, password, setLoading, history, link, setMessage) => (dispatch) => {
+export const loginAction = (email, password, setLoading, history, link, setMessage,setShow) => (dispatch) => {
 
     setLoading(true)
     return requestedServer.loginApi(email, password).then((res) => {
@@ -19,6 +19,7 @@ export const loginAction = (email, password, setLoading, history, link, setMessa
 
     }).catch((err) => {
         setLoading(false);
+        setShow(true)
         setMessage(err?.response?.data?.message)
 
 
