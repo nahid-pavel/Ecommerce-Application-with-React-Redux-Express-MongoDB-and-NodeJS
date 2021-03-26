@@ -8,6 +8,7 @@ import Checkout from './component/checkout/Checkout';
 import Login from './auth/login/Login';
 import SignUp from './auth/signUp/SignUp';
 import Profile from './component/profile/Profile';
+import AdminPages from './component/admin/AdminPages';
 
 
 
@@ -33,6 +34,7 @@ const BasePage = () => {
 
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/signup" component={SignUp} />
+                    <Route path="/admin" component={AdminPages} />
 
 
 
@@ -41,16 +43,18 @@ const BasePage = () => {
                         <div className="header-wrapper">
                             <Header isOpenProfileSidebar={isOpenProfileSidebar} setIsOpenProfileSidebar={setIsOpenProfileSidebar} />
                         </div>
+                       
 
-                     
-                            <Route exact path="/" component={ProductPages} />
-                            <Route path="/products" component={ProductPages} />
-                        <Container style={{marginTop:'35px'}}>
+
+                        <Route exact path="/" component={ProductPages} />
+                        <Route path="/products" component={ProductPages} />
+                        <Container style={{ marginTop: '35px' }}>
                             <Route path="/cartItems" component={CartItems} />
                             <Route path="/checkout" component={Checkout} />
                             <Route path="/order/:id" component={Order} />
 
                             <Route path="/profile" component={Profile} />
+                            
                         </Container>
 
 

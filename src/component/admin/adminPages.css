@@ -1,0 +1,13 @@
+.profile-sidebar {
+    z-index: 9999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #1e1e2d;
+  color: #ffffff;
+  height: 100vh;
+  overflow-y: scroll;
+  transition: all 0.5s ease-in-out;
+  margin-left: 0px;
+  width: 250px;
+  }
