@@ -1,9 +1,11 @@
 import Dashboard from './dashboard/Dashboard';
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import AdminHeader from './Header/AdminHeader';
+
 import Sidebar from './sidebar/Sidebar';
 import './adminPages.css';
+import AdminProduct from './sidebar/AdminProduct';
 
 
 
@@ -11,29 +13,35 @@ import './adminPages.css';
 
 export default function AdminPages() {
     return (
-        <>
-       
-        <div>
-        <Switch>
-            <div className="header-wrapper">
-                <AdminHeader />
+        <div className="main">
+            <div className="sidebar width-15">
+                <Sidebar />
             </div>
-            <Redirect
-                exact={true}
-                from="/admin"
-                to="/admin/dashboard"
-            />
-            <Route path="/admin/dashboard" component={Dashboard} />
 
-            {/* <Redirect to="/error" /> */}
-        </Switch>
-        </div>
-        <div className="profile-sidebar">
-            <Sidebar />
+
+            <Switch>
+            <div className="body">
+
+                <div className="header-wrapper">
+                    <AdminHeader />
+                </div>
+                <div className="body-inner  width-85">
+                    
+                    <Route path="/admin/dashboard" component={Dashboard} />
+                    <Route path="/admin/Product" component={AdminProduct} />
+
+                </div>
+              </div>
+
+
+
+
+                {/* <Redirect to="/error" /> */}
+            </Switch>
+
+           
+
         </div>
 
-        
-        </>
-      
     )
 }
