@@ -6,7 +6,7 @@ import AdminHeader from './Header/AdminHeader';
 import Sidebar from './sidebar/Sidebar';
 import './adminPages.css';
 import AdminProduct from './sidebar/AdminProduct';
-import CreateProduct from './product/CreateProduct';
+import CreateEditProduct from './product/CreateEditProduct';
 
 
 
@@ -30,7 +30,8 @@ export default function AdminPages() {
                     
                     <Route exact path="/admin/dashboard" component={Dashboard} />
                     <Route exact path="/admin/Product" component={AdminProduct} />
-                    <Route exact path="/admin/Product/Create" component={CreateProduct} />
+                    <Route exact path="/admin/Product/Create" component={CreateEditProduct} />
+                    <Route exact path="/admin/Product/Edit/:id" component={CreateEditProduct}/>
 
                 </div>
               </div>

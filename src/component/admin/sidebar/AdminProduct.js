@@ -6,6 +6,10 @@ import { getAllProductsActions } from '../../product/_redux/Actions';
 import Edit from '../../../_helper/Edit';
 import Delete from '../../../_helper/Delete';
 import {useHistory} from 'react-router-dom';
+import IConfirmModal from '../../../_helper/ConfirmModal';
+import { deleteSingleData } from './helper';
+
+
 
 
 
@@ -13,16 +17,20 @@ import {useHistory} from 'react-router-dom';
 export default function AdminProduct() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const [loading, setLoadng] = React.useState(true);
+    const [loading, setLoading] = React.useState(true);
     const products = useSelector((state) => {
         return state.product?.allProducts;
     }, shallowEqual);
 
-    console.log('got products', products)
+    const getAllProductsLanding=()=>{
+        dispatch(getAllProductsActions(setLoading))
+    }
+
+
 
 
     useEffect(() => {
-        dispatch(getAllProductsActions(setLoadng))
+        getAllProductsLanding()
 
     }, [dispatch])
     return (
@@ -66,12 +74,26 @@ export default function AdminProduct() {
                                         <td style={{ width: "80px" }}>{item?.countInStock >= 1 ? 'In Stock' : 'Out of stock'}</td>
                                         <td style={{ width: "50px" }} className="text-center">
                                             <div  className="d-flex justify-content-between">
-                                                <span
+                                                <span onClick={()=>history.push(`/admin/Product/Edit/${item._id}`)}
  
                                                 >
                                                     <Edit />
                                                 </span>
                                                 <span
+                                                  onClick={() =>
+                                                    IConfirmModal({
+                                                     
+                                                      message: "Are you sure?",
+                                                      yes: "Yes",
+                                                      no: "No",
+                                                      yesAlertFunc: function () {
+                                                        deleteSingleData(item?._id, getAllProductsLanding);
+                                                      },
+                                                      noAlertFunc: function () {
+                                                        return "";
+                                                      },
+                                                    })
+                                                  }
 
                                                 >
                                                     <Delete />

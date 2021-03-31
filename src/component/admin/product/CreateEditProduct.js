@@ -1,11 +1,17 @@
-import {  TextField,Grid,Box,Paper,Button} from '@material-ui/core';
-import { Formik } from 'formik';
-import { makeStyles } from '@material-ui/core/styles';
-
-import React from 'react';
+import React,{useEffect} from 'react';
 import * as Yup from 'yup';
 import { useHistory } from 'react-router-dom';
 import { FileDrop } from '../../../_helper/FileDrop';
+import { createProduct, getSingleProductById, uploadImages,updateProduct } from './helper';
+import Loading from '../../../_helper/Loading';
+import  {Alert}  from 'react-bootstrap';
+import {  TextField,Grid,Box,Paper,Button} from '@material-ui/core';
+import { Formik } from 'formik';
+import { useSelector, shallowEqual } from "react-redux";
+import {useParams} from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+
+
 
 
 const useStyles = makeStyles({
@@ -17,27 +23,50 @@ const useStyles = makeStyles({
 })
 
 
-export default function CreateProduct() {
+
+
+export default function CreateEditProduct() {
 
     const classes = useStyles();
     const history = useHistory();
     const [fileObjects, setFileObjects] = React.useState([]);
     const [open,setOpen]=React.useState(false);
+    const[loading,setLoading]=React.useState(false);
+    const[message,setMessage]=React.useState(false);
+    const [singleData, setSingleData] = React.useState("");
+    
+    const {id} =useParams();
+
+    
     
     const initData = {
         name: "",
         description: "",
         price: "",
-        quantity: "",
+        countInStock: "",
         brand: "",
+        category:"",
         image:""
     }
+    const { profileData } = useSelector(
+        (state) => state?.auth,
+        shallowEqual
+    );
+
+    useEffect(()=>{
+        if(id){
+        
+            getSingleProductById(id,setSingleData,setLoading)
+        }
+
+    },[id])
+    
 
     const validationSchema = Yup.object().shape({
         name: Yup.string().required('Name is required'),
         description: Yup.string().required('Description is required'),
         price: Yup.number().required('Price is required').min(1),
-        quantity: Yup.number().required('Quantity is required').min(1),
+        countInStock: Yup.number().required('Quantity is required').min(1),
         brand: Yup.string().required('Brand is required'),
 
 
@@ -48,23 +77,54 @@ export default function CreateProduct() {
 
         <Formik
             enableReinitialize={true}
-            initialValues={initData}
+            initialValues={id? singleData : initData}
             validationSchema={validationSchema}
-            onSubmit={(values) => {
+            onSubmit={async (values,{resetForm}) => {
+                
+                const {
+                    name,
+                    price,
+                    description,
+                   
+                    brand,
+                    category,
+                    countInStock,
+                  } =values
 
-                console.log(values,'got file objects')
+                const uploadedImage =await  uploadImages(fileObjects);
+                const payload ={
+                    user:profileData?._id,
+                    name,
+                    price,
+                    description,
+                    image:uploadedImage[0] || values?.image,
+                    brand,
+                    category,
+                    countInStock,
+
+                }
+                if(id){
+                    console.log(payload,'got payload from edit');
+                    console.log(values,'got values from edit')
+                    updateProduct(id,payload,setLoading,setMessage)
+                }else{
+                    createProduct(payload,setLoading,setMessage,() => resetForm(initData))
+
+                }
+
+                
             }}
         >
             {({ handleSubmit, resetForm,  errors, values ,setFieldValue}) => (
               
                 <>
-                    {console.log(errors)}
+                    { loading && <Loading /> }
                     <form onSubmit={handleSubmit}>
                     
                      
                      <Grid container spacing={3} style={{ marginTop: '5px' }} >
                     
-                               
+                            {message && <Alert variant="success">{message}</Alert>}
                                
                            
 
@@ -76,7 +136,7 @@ export default function CreateProduct() {
                                 <div className="form-card-heading">
                                 <p>
                                    
-                                           Create Product
+                                         {id? "Edit Product" : "Create Product"}  
                                           
                                 </p>
                                 <div>
@@ -149,13 +209,13 @@ export default function CreateProduct() {
                                         <label>Quantity</label>
                                         <TextField
                                             type="number"
-                                            value={values?.quantity}
-                                            onChange={(e)=>setFieldValue("quantity",e.target.value)}
-                                            name="quantity"
+                                            value={values?.countInStock}
+                                            onChange={(e)=>setFieldValue("countInStock",e.target.value)}
+                                            name="countInStock"
                                             variant="outlined"
                                             fullWidth
-                                            error={!!errors.quantity}
-                                            helperText={errors?.quantity}
+                                            error={!!errors.countInStock}
+                                            helperText={errors?.countInStock}
                   
                                           />
                                     </Grid>
@@ -170,6 +230,19 @@ export default function CreateProduct() {
                                         fullWidth
                                         error={!!errors.brand}
                                          helperText={errors?.brand}
+                  
+                                   />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                    <label>Category</label>
+                                    <TextField
+                                       value={values?.category}
+                                       onChange={(e)=>setFieldValue("category",e.target.value)}
+                                       name="category"
+                                       variant="outlined"
+                                       fullWidth
+                                       error={!!errors.category}
+                                       helperText={errors?.category}
                   
                                    />
                                     </Grid>
@@ -198,7 +271,7 @@ export default function CreateProduct() {
                                             color="primary"
                                             disableElevation
                                             >
-                                            Add Product
+                                           {id?'Edit Product':'Add Product'} 
                                         </Button>
                                         </Box>
                                      </Grid>
