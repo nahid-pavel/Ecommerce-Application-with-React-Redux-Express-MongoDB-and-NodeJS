@@ -41,13 +41,13 @@ body {
   border-radius: 8px;
   padding: 10px 15px;
 }
-.table-card-heading{
+.table-card-heading,.form-card-heading{
   display: flex;
   align-items: center;
   justify-content: space-between;
 
 }
-.table-card-heading p{
+.table-card-heading p,.form-card-heading p{
   font-weight:600;
   font-size:17px;
 
@@ -78,5 +78,13 @@ body {
   color: #000;
   border: 1px solid #cfcbcb;
 }
-
+.form-card-content {
+  margin-top: 10px;
+  background: #eef0f8;
+  border-radius: 3px;
+  padding: 5px;
+}
+.form-card-content label {
+  font-size: 12px;
+}
 

@@ -9,7 +9,7 @@ const menuList = [
         label: "Products",
         to: "/admin/Product",
 
-    }
+    },
   
 
 ];

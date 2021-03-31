@@ -5,10 +5,14 @@ import { useSelector, shallowEqual } from 'react-redux';
 import { getAllProductsActions } from '../../product/_redux/Actions';
 import Edit from '../../../_helper/Edit';
 import Delete from '../../../_helper/Delete';
+import {useHistory} from 'react-router-dom';
+
+
 
 
 export default function AdminProduct() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const [loading, setLoadng] = React.useState(true);
     const products = useSelector((state) => {
         return state.product?.allProducts;
@@ -25,7 +29,7 @@ export default function AdminProduct() {
         <div className="table-card">
             <div className="table-card-heading">
                 <p>All Products</p>
-                <button className="btn btn-success">Create Product</button>
+                <button className="btn btn-success" onClick={()=> history.push('/admin/Product/Create')}>Create Product</button>
 
             </div>
             <div className="table-responsive">
