@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-
+import Rating from '@material-ui/lab/Rating';
 import { getSingleProduct } from './helper';
 import { Image, ListGroup, Button, Container, Row, Col, Alert } from 'react-bootstrap';
-import Rating from '../../_helper/Rating';
+
 import Loading from '../../_helper/Loading';
 
 import Select from 'react-select';
@@ -85,7 +85,7 @@ export default function ProductItem() {
                     <div className="col-md-3">
                         <ListGroup variant="flush">
                             <ListGroup.Item><h2>{product?.name}</h2></ListGroup.Item>
-                            <ListGroup.Item><Rating value={product?.value} text={product?.numReviews} color="red" /></ListGroup.Item>
+                            <ListGroup.Item><Rating readOnly size="small" name="simple-controlled" value={product?.rating} /><span>{product?.numReviews ===1 || product?.numReviews ===0 ?`${product?.numReviews} Review`: `${product?.numReviews} Reviews`}</span></ListGroup.Item>
                             <ListGroup.Item>Price: {product?.price}</ListGroup.Item>
                             <ListGroup.Item>Description: {product?.description}</ListGroup.Item>
                         </ListGroup>

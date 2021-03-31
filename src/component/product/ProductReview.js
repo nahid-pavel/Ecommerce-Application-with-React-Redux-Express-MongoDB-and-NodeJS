@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Row, Button } from 'react-bootstrap';
-import RatingReadOnly from '../../_helper/RatingReadOnly';
+// import RatingReadOnly from '../../_helper/RatingReadOnly';
 import { makeStyles } from '@material-ui/core';
 
 import ReviewForm from './ReviewForm';
@@ -33,11 +33,11 @@ export default function ProductReview({productId,getSingleProductById}) {
         </Col>
       </Row>
 
-      <Row>
+      {/* <Row>
         <Col md={6} >
           <RatingReadOnly startPercent={75} ratingname="customer-review" color="#a6ce39" />
         </Col>
-      </Row>
+      </Row> */}
       <Row>
         <Col md={6} className={classes.writeReviewButton}>
           <Button onClick={handleClickOpen}>
