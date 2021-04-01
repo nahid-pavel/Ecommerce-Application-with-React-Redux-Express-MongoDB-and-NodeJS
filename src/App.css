@@ -87,4 +87,8 @@ body {
 .form-card-content label {
   font-size: 12px;
 }
+.itemCard{
+  min-height: 500px;
+    max-height: 500px;
+}
 

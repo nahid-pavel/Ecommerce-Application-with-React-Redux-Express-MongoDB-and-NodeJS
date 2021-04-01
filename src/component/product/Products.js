@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import { Box } from '@material-ui/core';
 import { useSelector, shallowEqual } from 'react-redux';
 import ItemCard from '../../_helper/ItemCard';
 import Loading from '../../_helper/Loading';
@@ -63,27 +63,14 @@ const Products = () => {
 
                             <div className="row">
 
-
+                            <Box display="flex" justifyContent="center" alignItems="flex-start" flexWrap="wrap">
 
                                 {
-                                    products?.products?.map((itm, index) => (
+                                    products?.products?.map((product, index) => (
 
                                         <div key={index} className="product-item col-md-4">
-                                            <ItemCard
-                                                link={`/products/${itm?._id}`}
-                                                name={itm?.name}
-                                                description={itm?.description}
-                                                imgSrc={itm?.image}
-                                                price={itm?.price}
-                                                rating={{
-                                                    value: itm?.rating,
-                                                    text: itm?.numReviews,
-                                                    color: 'red'
-
-
-
-                                                }}
-                                            />
+                                            <ItemCard product={product} />
+                                              
                                         </div>
 
 
@@ -92,6 +79,7 @@ const Products = () => {
                                     ))
 
                                 }
+                                </Box>
 
 
 
