@@ -3,11 +3,11 @@ import { Form, FormControl } from 'react-bootstrap';
 
 import './header.css';
 
-export default function SearchBox({placeholder, paginationSearchHandler, setIsEmpty,values} ) {
-    const [fieldValue,setFieldValue] = React.useState("")
+export default function SearchBox({placeholder, paginationSearchHandler,setFieldValue,fieldValue, setIsEmpty,values} ) {
+    
     return (
         <Form inline className="input-group">
-            <FormControl type="text" placeholder={placeholder} className="py-2  mr-1 pr-5" style={{ width: '90%' }} onChange={(e)=>{
+            <FormControl type="text" value={fieldValue} placeholder={placeholder} className="py-2  mr-1 pr-5" style={{ width: '90%' }} onChange={(e)=>{
                 setFieldValue(e.target.value);
                 console.log(e.target.value)
                 if(e.target.value.length ===0){

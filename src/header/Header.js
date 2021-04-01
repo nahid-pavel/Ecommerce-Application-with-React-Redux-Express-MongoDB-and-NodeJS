@@ -17,6 +17,7 @@ const Header = (
     const dispatch = useDispatch();
     const [loading, setLoading] = React.useState(false);
     const [isEmpty,setIsEmpty] = React.useState(true)
+    const [fieldValue,setFieldValue] = React.useState("")
 
     const totalItems = useSelector(state => {
         return state?.localStorage?.cartItems.reduce((a, b) => a + b?.totalQty, 0)
@@ -53,7 +54,7 @@ const Header = (
                     <h3>EShop</h3>
                 </div>
                 <div className="searchField">
-                    <SearchBox placeholder="Enter product name" paginationSearchHandler={paginationSearchHandler} setIsEmpty={setIsEmpty} />
+                    <SearchBox placeholder="Enter product name" fieldValue={fieldValue} paginationSearchHandler={paginationSearchHandler} setIsEmpty={setIsEmpty} setFieldValue={setFieldValue}/>
                     {
                         loading ? (
                             <div className="searchResult"><p>Loading</p></div>
@@ -72,6 +73,7 @@ const Header = (
                                                     <div  key={index}>
                                                         <ListGroup.Item onClick={()=>{
                                                             history.push(`/products/${item?._id}`);
+                                                            setFieldValue("");
                                                             setIsEmpty(true)
 
                                                         }} id="list-item" >

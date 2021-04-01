@@ -7,7 +7,7 @@ import './product.css';
 import { useDispatch } from 'react-redux';
 import Carousal from './Carousal';
 import { Container } from 'react-bootstrap';
-import PaginationTable from '../../_helper/_tablePagination';
+
 import { getAllProductsActions } from './_redux/Actions';
 
 
@@ -15,24 +15,11 @@ const Products = () => {
     const dispatch = useDispatch();
 
     const [loading, setLoading] = useState(true);
-    const [pageNo, setPageNo] = useState(0)
-    const [pageSize, setPageSize] = useState(15);
+  
     const products = useSelector((state) => {
         return state.product?.allProducts;
     }, shallowEqual);
-    const setPositionHandler = (pageNo, pageSize) => {
-        dispatch(
-            getAllProductsActions(
-
-                setLoading,
-                pageNo,
-                pageSize
-            )
-
-        )
-
-
-    }
+    
 
 
 
@@ -40,9 +27,8 @@ const Products = () => {
         dispatch(
             getAllProductsActions(
 
-                setLoading,
-                pageNo,
-                pageSize
+                setLoading
+              
             )
 
         )
@@ -110,18 +96,7 @@ const Products = () => {
 
 
                             </div>
-                            <div className="pagination">
-                                {
-                                    products?.products?.length > 0 && (
-                                        <PaginationTable
-                                            count={products?.totalCount}
-                                            setPositionHandler={setPositionHandler}
-                                            paginationState={{ pageNo, setPageNo, pageSize, setPageSize }}
-                                        />
-                                    )
-                                }
-
-                            </div>
+                            
 
                         </Container>
                     </>)

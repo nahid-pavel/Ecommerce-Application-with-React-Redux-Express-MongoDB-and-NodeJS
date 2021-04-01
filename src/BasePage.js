@@ -43,19 +43,23 @@ const BasePage = () => {
                         <div className="header-wrapper">
                             <Header isOpenProfileSidebar={isOpenProfileSidebar} setIsOpenProfileSidebar={setIsOpenProfileSidebar} />
                         </div>
-                       
+
 
 
                         <Route exact path="/" component={ProductPages} />
                         <Route path="/products" component={ProductPages} />
-                        <Container style={{ marginTop: '35px' }}>
-                            <Route path="/cartItems" component={CartItems} />
-                            <Route path="/checkout" component={Checkout} />
-                            <Route path="/order/:id" component={Order} />
+                        <div style={{ marginTop: '65px' }}>
+                            <Container>
+                                <Route path="/cartItems" component={CartItems} />
+                                <Route path="/checkout" component={Checkout} />
+                                <Route path="/order/:id" component={Order} />
 
-                            <Route path="/profile" component={Profile} />
-                            
-                        </Container>
+                                <Route path="/profile" component={Profile} />
+
+                            </Container>
+
+                        </div>
+
 
 
 
