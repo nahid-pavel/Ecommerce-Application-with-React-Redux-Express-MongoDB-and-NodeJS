@@ -1,27 +1,30 @@
-import './App.css';
 
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { MuiThemeProvider, CssBaseline } from '@material-ui/core';
-import theme from './theme';
-import Home from './components/Home/Home';
-import MainNavigation from './components/Navigation/MainNavigation';
+import './App.css';
+import BasePage from './BasePage';
+import { useSelector, shallowEqual } from "react-redux";
+import axios from "axios";
+
 
 
 
 
 function App() {
+
+  const token = useSelector(
+    (state) => state?.auth?.profileData?.token,
+    shallowEqual
+  );
+
+  console.log('got token', token)
+
+  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+
+
   return (
-    <Router>
-      <MuiThemeProvider theme={theme} />
-      <CssBaseline />
-      
-      <Switch>
-        <MainNavigation  />
-        <Route exact path="/" component={Home} />
-      </Switch>
-
-
-    </Router>
+    <div>
+      <BasePage />
+    </div>
   );
 }
 
