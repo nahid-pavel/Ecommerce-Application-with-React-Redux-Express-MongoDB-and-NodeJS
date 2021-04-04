@@ -10,6 +10,8 @@ import { Formik } from 'formik';
 import { useSelector, shallowEqual } from "react-redux";
 import { useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import SearchSelect from '../../../_helper/SearchSelect';
+
 
 
 
@@ -48,6 +50,10 @@ export default function CreateEditProduct() {
         category: "",
         image: ""
     }
+    const categoryDDL =[{value:'Laptop',label:'Laptop'},{value:'Smartphone',label:'Smartphone'}]
+    const brandDDL =[{value:'Asus',label:'Asus'},{value:'Dell',label:'Dell'}]
+   
+
     const { profileData } = useSelector(
         (state) => state?.auth,
         shallowEqual
@@ -71,6 +77,7 @@ export default function CreateEditProduct() {
         price: Yup.number().required('Price is required').min(1),
         countInStock: Yup.number().required('Quantity is required').min(1),
         brand: Yup.string().required('Brand is required'),
+        category: Yup.string().required('Category is required'),
         image:  Yup.string().required('Image is required'),
 
 
@@ -127,6 +134,7 @@ export default function CreateEditProduct() {
                 <>
                     { loading && <Loading />}
                     {console.log(values)}
+                    {console.log(errors,'errors')}
                     <form onSubmit={handleSubmit}>
 
 
@@ -229,21 +237,33 @@ export default function CreateEditProduct() {
                                         </Grid>
                                         <Grid item xs={12}>
                                             <label>Brand</label>
-                                            <TextField
-                                                value={values?.brand}
-                                                onChange={(e) => setFieldValue("brand", e.target.value)}
+                                            <SearchSelect 
+                                               options ={brandDDL}
+                                               value ={values?.brand}
+                                               setFieldValue={setFieldValue}
+                                               error={!!errors.brand}
+                                               helperText={errors?.brand}
+                                               name="brand"
+                                               fullWidth={true}
+                                             
 
-                                                name="brand"
-                                                variant="outlined"
-                                                fullWidth
-                                                error={!!errors.brand}
-                                                helperText={errors?.brand}
 
-                                            />
+                                             />
                                         </Grid>
                                         <Grid item xs={12}>
                                             <label>Category</label>
-                                            <TextField
+                                            <SearchSelect 
+                                               options ={categoryDDL}
+                                               value ={values?.category}
+                                               setFieldValue={setFieldValue}
+                                               error={!!errors.category}
+                                               helperText={errors?.category}
+                                               fullWidth={true}
+                                               name="category"
+
+
+                                             />
+                                            {/* <TextField
                                                 value={values?.category}
                                                 onChange={(e) => setFieldValue("category", e.target.value)}
                                                 name="category"
@@ -252,7 +272,7 @@ export default function CreateEditProduct() {
                                                 error={!!errors.category}
                                                 helperText={errors?.category}
 
-                                            />
+                                            /> */}
                                         </Grid>
 
                                         <Grid item xs={12} className=" d-flex">
@@ -261,6 +281,7 @@ export default function CreateEditProduct() {
                                                 setFieldValue={setFieldValue}
                                                 fileObjects={fileObjects}
                                                 setFileObjects={setFileObjects}
+                                               
                                                 open={open}
                                                 setOpen={setOpen}
                                                 onClick={() => setOpen(true)}
