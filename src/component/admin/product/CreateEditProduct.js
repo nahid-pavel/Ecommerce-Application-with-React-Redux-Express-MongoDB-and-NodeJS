@@ -50,8 +50,8 @@ export default function CreateEditProduct() {
         category: "",
         image: ""
     }
-    const categoryDDL =[{value:'Laptop',label:'Laptop'},{value:'Smartphone',label:'Smartphone'}]
-    const brandDDL =[{value:'Asus',label:'Asus'},{value:'Dell',label:'Dell'}]
+    const categoryDDL =[{value:'Electronics',label:'Electronics'},{value:'Smartphone',label:'Smartphone'}]
+    const brandDDL =[{value:'Apple',label:'Apple'},{value:'Logitech',label:'Logitech'}]
    
 
     const { profileData } = useSelector(
@@ -76,9 +76,16 @@ export default function CreateEditProduct() {
         description: Yup.string().required('Description is required'),
         price: Yup.number().required('Price is required').min(1),
         countInStock: Yup.number().required('Quantity is required').min(1),
-        brand: Yup.string().required('Brand is required'),
-        category: Yup.string().required('Category is required'),
+      
         image:  Yup.string().required('Image is required'),
+        category: Yup.object().shape({
+            label: Yup.string().required("Category is required"),
+            value: Yup.string().required("Category is required"),
+          }),
+          brand: Yup.object().shape({
+            label: Yup.string().required("Brand is required"),
+            value: Yup.string().required("Brand is required"),
+          }),
 
 
     })
@@ -120,9 +127,9 @@ export default function CreateEditProduct() {
                 if (id) {
                     console.log(payload, 'got payload from edit');
                     console.log(values, 'got values from edit')
-                    updateProduct(id, payload, setLoading, setMessage)
+                    updateProduct(id, {...payload,category:category?.label,brand:brand?.label},setLoading, setMessage)
                 } else {
-                    createProduct(payload, setLoading, setMessage, () => resetForm(initData))
+                    createProduct({...payload,category:category?.label,brand:brand?.label}, setLoading, setMessage, () => resetForm(initData))
 
                 }
 
@@ -239,10 +246,11 @@ export default function CreateEditProduct() {
                                             <label>Brand</label>
                                             <SearchSelect 
                                                options ={brandDDL}
-                                               value ={values?.brand}
+                                              
+                                               value={values?.brand}
                                                setFieldValue={setFieldValue}
-                                               error={!!errors.brand}
-                                               helperText={errors?.brand}
+                                               error={!!errors?.brand?.value}
+                                               helperText={errors?.brand?.value}
                                                name="brand"
                                                fullWidth={true}
                                              
@@ -256,8 +264,8 @@ export default function CreateEditProduct() {
                                                options ={categoryDDL}
                                                value ={values?.category}
                                                setFieldValue={setFieldValue}
-                                               error={!!errors.category}
-                                               helperText={errors?.category}
+                                               error={!!errors.category?.value}
+                                               helperText={errors?.category?.value}
                                                fullWidth={true}
                                                name="category"
 

@@ -47,6 +47,8 @@ export default function AdminProduct() {
                             <th>SL</th>
                             <th>Name</th>
                             <th>Description</th>
+                            <th>Category</th>
+                            <th>Brand</th>
                             <th>Price</th>
                             <th>Quantity</th>
                             <th>Rating</th>
@@ -68,6 +70,8 @@ export default function AdminProduct() {
                                         <td>{index + 1}</td>
                                         <td>{item?.name}</td>
                                         <td>{item?.description}</td>
+                                        <td>{item?.category}</td>
+                                        <td>{item?.brand}</td>
                                         <td>{item?.price}</td>
                                         <td>{item?.countInStock}</td>
                                         <td>{item?.rating}</td>

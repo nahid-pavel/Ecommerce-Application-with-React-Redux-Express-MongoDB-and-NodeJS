@@ -62,8 +62,11 @@ export const getSingleProductById=async (id,setSingleData,setLoading)=>{
 
         const res = await axios.get(`https://arcane-ravine-98370.herokuapp.com/https://eshop99-api.herokuapp.com/api/products/${id}`);
         if (res) {
-            console.log(res);
-            setSingleData(res?.data)
+            const {data} = res;
+            setSingleData({...data, 
+                category: {value:data?.category,label:data?.category},
+                brand:{value:data?.brand,label:data?.brand}
+            })
            
             setLoading(false)
           
