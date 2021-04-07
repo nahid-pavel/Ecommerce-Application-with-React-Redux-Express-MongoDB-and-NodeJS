@@ -1,12 +1,14 @@
 import Dashboard from './dashboard/Dashboard';
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import AdminHeader from './Header/AdminHeader';
 
 import Sidebar from './sidebar/Sidebar';
 import './adminPages.css';
 import AdminProduct from './sidebar/AdminProduct';
 import CreateEditProduct from './product/CreateEditProduct';
+import PrivateRoute from '../privateRoute/PrivateRoute';
+
 
 
 
@@ -28,10 +30,10 @@ export default function AdminPages() {
                 </div>
                 <div className="body-inner  width-85">
                     
-                    <Route exact path="/admin/dashboard" component={Dashboard} />
-                    <Route exact path="/admin/Product" component={AdminProduct} />
-                    <Route exact path="/admin/Product/Create" component={CreateEditProduct} />
-                    <Route exact path="/admin/Product/Edit/:id" component={CreateEditProduct}/>
+                    <PrivateRoute exact path="/admin/dashboard" component={Dashboard} />
+                    <PrivateRoute exact path="/admin/Product" component={AdminProduct} />
+                    <PrivateRoute exact path="/admin/Product/Create" component={CreateEditProduct} />
+                    <PrivateRoute exact path="/admin/Product/Edit/:id" component={CreateEditProduct}/>
 
                 </div>
               </div>

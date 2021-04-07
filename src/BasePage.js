@@ -13,8 +13,10 @@ import AdminPages from './component/admin/AdminPages';
 
 
 
+
 import Order from './component/checkout/checkoutSteps/order/Order';
 import { Container } from 'react-bootstrap';
+import PrivateRoute from './component/privateRoute/PrivateRoute';
 
 
 
@@ -34,7 +36,7 @@ const BasePage = () => {
 
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/signup" component={SignUp} />
-                    <Route path="/admin" component={AdminPages} />
+                    <PrivateRoute path="/admin" component={AdminPages} />
 
 
 
